@@ -19,8 +19,15 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::group(['middleware' => ['auth']], function() {
+    Route::get('/Prescription', 'PrescriptionController@index')->name('Prescription');
+    
+});
+
+
 Route::group(['middleware' => ['auth', 'permission']], function() {
     Route::get('/usersname', function () {
         return 'ghj';
     });
+    
 });
