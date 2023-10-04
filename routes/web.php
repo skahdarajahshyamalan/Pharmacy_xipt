@@ -21,13 +21,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/Prescription', 'PrescriptionController@index')->name('Prescription');
-    
+    Route::post('/uploadPrescription', 'PrescriptionController@uploadPrescription')->name('upload.uploadPrescription');
 });
 
 
 Route::group(['middleware' => ['auth', 'permission']], function() {
-    Route::get('/usersname', function () {
-        return 'ghj';
-    });
-    
+       Route::get('/Things', 'PrescriptionController@Thingsindex')->name('Things');
 });

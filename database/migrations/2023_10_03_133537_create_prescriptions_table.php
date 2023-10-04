@@ -15,7 +15,7 @@ class CreatePrescriptionsTable extends Migration
     {
         Schema::create('prescriptions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('images');
+            $table->text('images');
             $table->string('note');
             $table->string('deliveryaddress');
             $table->string('delideliverytime');
