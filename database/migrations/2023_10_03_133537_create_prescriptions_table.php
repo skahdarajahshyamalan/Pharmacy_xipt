@@ -17,6 +17,7 @@ class CreatePrescriptionsTable extends Migration
             $table->bigIncrements('id');
             $table->text('images');
             $table->string('note');
+            $table->string('user_id');
             $table->string('deliveryaddress');
             $table->string('delideliverytime');
             $table->timestamps();

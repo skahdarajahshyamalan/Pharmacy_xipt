@@ -28,4 +28,5 @@ Route::group(['middleware' => ['auth']], function() {
 Route::group(['middleware' => ['auth', 'permission']], function() {
        Route::get('/Things', 'PrescriptionController@Thingsindex')->name('Things');
        Route::get('/Thingseditshow/{id}', 'PrescriptionController@Thingseditshow')->name('things.Thingseditshow');
+       Route::post('/InviceSend', 'InviceController@InviceSend')->name('InviceSend');
 });

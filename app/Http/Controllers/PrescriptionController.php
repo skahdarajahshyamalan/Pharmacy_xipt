@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Auth;
 use App\prescription;
 use Illuminate\Http\Request;
 
@@ -46,6 +46,7 @@ class PrescriptionController extends Controller
           $flight->images =  json_encode($array);
           $flight->deliveryaddress = $request->deliveryaddress;
           $flight->delideliverytime = $request->delideliverytime;
+          $flight->user_id = Auth::user()->id;
           $flight->note = $request->note;
           $flight->save();
           return redirect()->back()->with('success', 'prescription Detail Sent');

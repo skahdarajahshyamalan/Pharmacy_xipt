@@ -114,7 +114,7 @@
                                     <div class="row mt-2">
                                         <div class="col"></div>
                                         <div class="col"></div>
-                                        <div class="col"><button class="form-control">Send Quotation</button></div>
+                                        <div class="col"><button class="form-control " onclick="sendbill()">Send Quotation</button></div>
                                     </div>
                                 </div>
                             </div>
@@ -126,4 +126,6 @@
             </div>
         </div>
     </div>
+   
 @endsection
+

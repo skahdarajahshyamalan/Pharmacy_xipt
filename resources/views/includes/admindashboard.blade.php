@@ -31,7 +31,7 @@ $prescriptions = DB::table('prescriptions')->get();
                 <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="{{ url('/Thingseditshow/' . 5) }}">addbill</a>
+                    <a class="dropdown-item" href="{{ url('/Thingseditshow/' . $item->id) }}">addbill</a>
                     <a class="dropdown-item" href="#">View</a>
                     
                 </div>

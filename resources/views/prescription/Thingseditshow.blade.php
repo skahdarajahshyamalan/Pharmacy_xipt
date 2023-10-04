@@ -75,12 +75,12 @@
                                             <!--endhead-->
                                             <!--invocenoby-->
                                             <div class="container text-center invvicename">
-                                               
-                                               
+
+
                                                 <div class="row">
                                                     <div class="col"> </div>
-                                                    <div class="col">  </div>
-                                                    <div class="col">  </div>
+                                                    <div class="col"> </div>
+                                                    <div class="col"> </div>
                                                 </div>
                                             </div>
                                             <!--endinvocenoby-->
@@ -149,7 +149,8 @@
                                         <div class="row mt-2">
                                             <div class="col"></div>
                                             <div class="col"></div>
-                                            <div class="col"><button class="form-control">Send Quotation</button></div>
+                                            <div class="col"><button class="form-control" onclick="sendbill()">Send
+                                                    Quotation</button></div>
                                         </div>
                                     </div>
                                 </div>
@@ -164,89 +165,124 @@
     </div>
     <script>
         function addthing() {
-             $('.invvicename').hide();
+            $('.invvicename').hide();
             $('.price').hide();
         }
 
         function addinvice() {
-            if ($('#exampleDataList').val().trim() === '' || $('#Quantity').val().trim()==='') {
-            alert('please check inputs')
-} else {
-    $('.invvicename').show();
-            $('.price').show();
-    function getRandomInt(min, max) {
-                return Math.floor(Math.random() * (max - min + 1)) + min;
-            }
-            var randomNumber = getRandomInt(1, 100);
+            if ($('#exampleDataList').val().trim() === '' || $('#Quantity').val().trim() === '') {
+                alert('please check inputs')
+            } else {
+                $('.invvicename').show();
+                $('.price').show();
 
-            const myArray = [];
-
-            // Create objects
-            var obj1 = {
-                thing: $('#exampleDataList').val(),
-                qunty: $('#Quantity').val(),
-                Amount: getRandomInt(1, 100) * parseInt($('#Quantity').val())
-            };
-           
-            // Function to check if an object exists in the array
-            function doesObjectExist(arr, obj) {
-                for (var i = 0; i < arr.length; i++) {
-                    if (JSON.stringify(arr[i]) === JSON.stringify(obj)) {
-                        return true; // Object already exists in the array
-                    }
+                function getRandomInt(min, max) {
+                    return Math.floor(Math.random() * (max - min + 1)) + min;
                 }
-                return false; // Object does not exist in the array
+                var randomNumber = getRandomInt(1, 100);
+
+                const myArray = [];
+
+
+                var obj1 = {
+                    thing: $('#exampleDataList').val(),
+                    qunty: $('#Quantity').val(),
+                    Amount: getRandomInt(1, 100) * parseInt($('#Quantity').val())
+                };
+
+
+                function doesObjectExist(arr, obj) {
+                    for (var i = 0; i < arr.length; i++) {
+                        if (JSON.stringify(arr[i]) === JSON.stringify(obj)) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+
+
+                if (!doesObjectExist(myArray, obj1)) {
+                    myArray.push(obj1);
+                }
+
+
+                if (!doesObjectExist(myArray, obj1)) {
+                    myArray.push(obj2);
+                }
+
+
+                if (!doesObjectExist(myArray, obj1)) {
+                    myArray.push(obj3);
+                }
+
+
+                if (!doesObjectExist(myArray, obj1)) {
+                    myArray.push(obj4);
+                }
+
+
+                console.log(myArray);
+                $.each(myArray, function(index, obj) {
+
+                    var htmlStructure = $(
+                        '<div class="row countinc">' +
+                        '<div class="col thing">' + obj.thing + '</div>' +
+                        '<div class="col qunty">' + obj.Amount / obj.qunty + '.00' + ' x' + obj.qunty +
+                        '</div>' +
+                        '<div class="col countprice">' + obj.Amount + '</div>' +
+                        '</div>'
+                    );
+
+
+                    $('.invvicename').append(htmlStructure);
+                    localStorage.setItem("username", obj);
+                });
+                var totalPrice = 0;
+                $('.countprice').each(function(index, element) {
+                    var price = parseFloat($(element).text());
+                    if (!isNaN(price)) {
+                        totalPrice += price;
+                    }
+                });
+
+
             }
+            $('.totprice').html(totalPrice.toFixed(2));
+            $('.totamoutprice').html('Total');
 
-            // Check if obj1 already exists in myArray before adding it
-            if (!doesObjectExist(myArray, obj1)) {
-                myArray.push(obj1);
+
+        }
+
+        function sendbill() {
+            var last = [];
+            $('.countinc').each(function(index, row) {
+                var thing = $(row).find('.thing').text();
+                var qunty = $(row).find('.qunty').text();
+                var countprice = $(row).find('.countprice').text();
+                var obj1 = {
+                    thing: $(row).find('.thing').text(),
+                    qunty: $(row).find('.qunty').text(),
+                    Amount: $(row).find('.countprice').text()
+                };
+
+                last.push(obj1)
+            });
+            $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-
-            // Check if obj2 already exists in myArray before adding it
-            if (!doesObjectExist(myArray, obj1)) {
-                myArray.push(obj2);
+            });
+            $.ajax({
+            type: 'POST',
+            url: '/InviceSend', // Replace with the actual endpoint URL
+            data: {'hgj':last,'id':<?php echo request()->route('id')?>},
+            success: function (response) {
+                console.log(response); // Handle the response from the server
+            },
+            error: function (error) {
+                console.error(error); // Handle any errors
             }
-
-            // Check if obj3 already exists in myArray before adding it
-            if (!doesObjectExist(myArray, obj1)) {
-                myArray.push(obj3);
-            }
-
-            // Check if obj4 already exists in myArray before adding it
-            if (!doesObjectExist(myArray, obj1)) {
-                myArray.push(obj4);
-            }
-
-            // Display the contents of the array
-            console.log(myArray);
-            $.each(myArray, function(index, obj) {
-        // Create the HTML structure as a jQuery object
-        var htmlStructure = $(
-            '<div class="row">' +
-            '<div class="col">' + obj.thing + '</div>' +
-            '<div class="col">'+obj.Amount/obj.qunty+'.00'+' x' + obj.qunty + '</div>' +
-            '<div class="col countprice">' + obj.Amount + '</div>' +
-            '</div>'
-        );
-
-        // Append the HTML structure to the element with ID "container"
-        $('.invvicename').append(htmlStructure);
-    });
-    var totalPrice = 0;
-    $('.countprice').each(function(index, element) {
-        var price = parseFloat($(element).text());
-        if (!isNaN(price)) {
-        totalPrice += price;
-          }
         });
-
-    
-}
-$('.totprice').html(totalPrice.toFixed(2));
-$('.totamoutprice').html('Total');
-//console.log("Total Price: " + totalPrice.toFixed(2));
-           
         }
     </script>
 @endsection
