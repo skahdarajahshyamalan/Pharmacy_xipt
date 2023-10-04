@@ -63,7 +63,13 @@ class PrescriptionController extends Controller
     {
         //
     }
+    public function editshow(Request $request){
 
+    }
+    public function Thingseditshow(Request $request,$id){
+        $prescription = prescription::where('id',$id)->get();
+        return view('prescription.Thingseditshow',compact('prescription'));
+    }
     /**
      * Display the specified resource.
      *

@@ -64,6 +64,12 @@
         </style>
     </head>
     <body>
+        @php
+    if (auth()->check()) {
+        $redirectUrl = route('home');
+        echo "<script>window.location.href='{$redirectUrl}';</script>";
+    }
+@endphp
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
