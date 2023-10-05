@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\invice;
 use App\prescription;
+use Mail;
 use Illuminate\Http\Request;
 
 class InviceController extends Controller
@@ -48,6 +49,13 @@ class InviceController extends Controller
           prescription::where('id', $request->id)->update([
              'status' => '1', 
          ]);
+         $data = array('name'=>"pamachy");
+   
+         Mail::send(['text'=>'mail'], $data, function($message) {
+            $message->to('abc@gmail.com', 'Tutorials Point')->subject
+               ('Laravel Basic Testing Mail');
+            $message->from('xyz@gmail.com','Virat Gandhi');
+         });
           return response()->json([
             'redirect' => route('home'),
             'message' => 'Your success message here',
