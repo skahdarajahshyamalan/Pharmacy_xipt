@@ -277,11 +277,13 @@
             url: '/InviceSend', // Replace with the actual endpoint URL
             data: {'hgj':last,'id':<?php echo request()->route('id')?>},
             success: function (response) {
-                console.log(response); // Handle the response from the server
-            },
-            error: function (error) {
-                console.error(error); // Handle any errors
-            }
+        if (response.redirect) {
+             window.location.href = response.redirect;
+            alert(response.message);
+        }
+    },
+    error: function (error) {
+          }
         });
         }
     </script>

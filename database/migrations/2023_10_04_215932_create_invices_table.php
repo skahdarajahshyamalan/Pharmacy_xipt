@@ -16,6 +16,7 @@ class CreateInvicesTable extends Migration
         Schema::create('invices', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('user_id');
+            $table->string('prescrip_id');
             $table->string('status');
             $table->text('invice');
             $table->timestamps();

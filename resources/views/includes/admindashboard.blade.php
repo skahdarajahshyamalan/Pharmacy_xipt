@@ -1,7 +1,7 @@
 @if(Auth::check())
 <h4><p class="text-center">List of users prescription detail</p></h4>
 <?php 
-$prescriptions = DB::table('prescriptions')->get();
+$prescriptions = DB::table('prescriptions')->where('status', '<>', '1')->get();
 ?>
 <table class="table caption-top">
     

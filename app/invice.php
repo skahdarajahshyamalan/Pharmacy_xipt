@@ -13,6 +13,6 @@ class invice extends Model
         'user_id',
         'status',
         'invice',
-        
+        'prescrip_id'
     ];
 }

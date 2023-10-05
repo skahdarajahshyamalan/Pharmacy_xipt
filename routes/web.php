@@ -22,6 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => ['auth']], function() {
     Route::get('/Prescription', 'PrescriptionController@index')->name('Prescription');
     Route::post('/uploadPrescription', 'PrescriptionController@uploadPrescription')->name('upload.uploadPrescription');
+    Route::get('/Prescriptionshow/{id}', 'PrescriptionController@Prescriptionshow')->name('Prescriptionshow');
 });
 
 
@@ -29,4 +30,5 @@ Route::group(['middleware' => ['auth', 'permission']], function() {
        Route::get('/Things', 'PrescriptionController@Thingsindex')->name('Things');
        Route::get('/Thingseditshow/{id}', 'PrescriptionController@Thingseditshow')->name('things.Thingseditshow');
        Route::post('/InviceSend', 'InviceController@InviceSend')->name('InviceSend');
+       Route::get('/adminStatus', 'InviceController@adminStatus')->name('adminStatus');
 });

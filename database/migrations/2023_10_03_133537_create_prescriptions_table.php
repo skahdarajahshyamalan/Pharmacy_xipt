@@ -20,6 +20,7 @@ class CreatePrescriptionsTable extends Migration
             $table->string('user_id');
             $table->string('deliveryaddress');
             $table->string('delideliverytime');
+            $table->string('status');
             $table->timestamps();
         });
     }

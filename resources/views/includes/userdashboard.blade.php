@@ -1,8 +1,8 @@
 @if(Auth::check())
 @if(Auth::check())
-<h4><p class="text-center">List of users prescription detail</p></h4>
+<h4><p class="text-center">Pharmacy replay</p></h4>
 <?php 
-$prescriptions = DB::table('prescriptions')->get();
+$prescriptions = DB::table('prescriptions')->where('user_id',Auth::user()->id)->where('status',1)->get();
 ?>
 <table class="table caption-top">
     
@@ -32,9 +32,8 @@ $prescriptions = DB::table('prescriptions')->get();
                 <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">accept</a>
-                    <a class="dropdown-item" href="#">reject</a>
-                    
+                    <a class="dropdown-item" href="{{ url('/Prescriptionshow/' . $item->id) }}">View</a>
+                                     
                 </div>
             </div>
             

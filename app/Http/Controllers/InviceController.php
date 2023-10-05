@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Auth;
 use App\invice;
+use App\prescription;
 use Illuminate\Http\Request;
 
 class InviceController extends Controller
@@ -38,7 +39,19 @@ class InviceController extends Controller
         //
     }
     public function InviceSend(Request $request){
-    return $request->id;
+          $flight = new invice;
+          $flight->status = 1;
+          $flight->invice = json_encode($request->hgj);
+          $flight->user_id = Auth::user()->id;
+          $flight->prescrip_id = $request->id;
+          $flight->save();
+          prescription::where('id', $request->id)->update([
+             'status' => '1', 
+         ]);
+          return response()->json([
+            'redirect' => route('home'),
+            'message' => 'Your success message here',
+        ]);
     }
     /**
      * Display the specified resource.
@@ -73,7 +86,9 @@ class InviceController extends Controller
     {
         //
     }
-
+   public function adminStatus(Request $request){
+    return $request->all();
+   }
     /**
      * Remove the specified resource from storage.
      *

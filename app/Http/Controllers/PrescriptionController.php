@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Auth;
 use App\prescription;
+use App\invice;
 use Illuminate\Http\Request;
 
 class PrescriptionController extends Controller
@@ -48,7 +49,9 @@ class PrescriptionController extends Controller
           $flight->delideliverytime = $request->delideliverytime;
           $flight->user_id = Auth::user()->id;
           $flight->note = $request->note;
+          $flight->status=0;
           $flight->save();
+        
           return redirect()->back()->with('success', 'prescription Detail Sent');
    }
     /**
@@ -57,6 +60,10 @@ class PrescriptionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function Prescriptionshow(Request $request,$id){
+        $prescription = invice::where('prescrip_id',$id)->get();
+        return view('Things.invicestatus');
+    }
     public function Thingsindex(Request $request){
         return view('Things.index');
     }

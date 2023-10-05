@@ -13,6 +13,7 @@ class prescription extends Model
         'note',
         'deliveryaddress',
         'delideliverytime',
-        'user_id'
+        'user_id',
+        'status'
     ];
 }
